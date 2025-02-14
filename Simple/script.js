@@ -1,84 +1,208 @@
 const text = document.getElementById("text");
-text.textContent = `Hello, DOM!`;
-
 const changeColorButton = document.getElementById("changeColor");
-changeColorButton.addEventListener("click", () => {
-  document.body.style.backgroundColor = `yellow`;
-});
-
 const toggle = document.querySelector("#toggle");
 const box = document.querySelector("#box");
-
-toggle.addEventListener("click", () => {
-  box.classList?.toggle("toggleDisplay");
-});
-
 const list = document.querySelector("#list");
 const addItem = document.querySelector("#addItem");
-
-addItem.addEventListener("click", () => {
-  let newItem = document.createElement("li");
-  newItem.textContent = "New Item";
-  list.appendChild(newItem);
-});
-
 const nameInput = document.getElementById("nameInput");
 const fillName = document.getElementById("fillName");
-
-fillName.addEventListener("click", () => {
-  nameInput.value = "John Doe";
-});
-
-let count = 0;
 const countDisplay = document.getElementById("countDisplay");
 const countButton = document.getElementById("countButton");
-countButton.addEventListener("click", () => {
-  count++;
-  countDisplay.textContent = count;
-});
-
 const removeMe = document.getElementById("removeMe");
 const removeButton = document.getElementById("removeButton");
-
-removeButton.onclick = function () {
-  removeMe.remove();
-};
-
 const hoverText = document.getElementById("hoverText");
-hoverText.onmouseover = function () {
-  hoverText.style.fontSize = "2em";
-};
-hoverText.onmouseout = function () {
-  hoverText.style.fontSize = "1em";
-};
-
 const myForm = document.getElementById("myForm");
-myForm.addEventListener("submit", function (e) {
-  e.preventDefault();
-});
-
 const createBox = document.getElementById("createBox");
-
-createBox.addEventListener("click", function () {
-  let fragment = document.createDocumentFragment();
-  let newDiv = document.createElement("div");
-  newDiv.textContent = `I am a new Div`;
-  newDiv.classList.add("box");
-  fragment.appendChild(newDiv);
-  document.body.appendChild(fragment);
-});
-
 const removeBox = document.getElementById("removeBox");
-removeBox.addEventListener("click", () => {
-  let boxes = document.getElementsByClassName("box");
-  if (boxes.length) {
-    document.body.removeChild(boxes[boxes.length - 1]);
-  }
-});
-
 const message = document.getElementById("message");
 const charCount = document.getElementById("charCount");
+const inputs = document.querySelectorAll("input");
+const myInput = document.getElementById("myInput");
+const dragBox = document.getElementById("dragBox");
+const darkMode = document.getElementById("darkMode");
+const timer = document.getElementById("timer");
+const userList = document.getElementById("userList");
+const switchText = document.getElementById("switchText");
+const copyInput = document.getElementById("copyInput");
+const copyBtn = document.getElementById("copyBtn");
 
-message.addEventListener("input", (e) => {
-  charCount.innerText = message.value.length;
+if (text) text.textContent = "Hello, DOM!";
+
+if (changeColorButton) {
+  changeColorButton.addEventListener("click", () => {
+    document.body.style.backgroundColor = "yellow";
+  });
+}
+
+if (toggle && box) {
+  toggle.addEventListener("click", () => {
+    box.classList.toggle("toggleDisplay");
+  });
+}
+
+if (list && addItem) {
+  addItem.addEventListener("click", () => {
+    const newItem = document.createElement("li");
+    newItem.textContent = "New Item";
+    list.appendChild(newItem);
+  });
+}
+
+if (nameInput && fillName) {
+  fillName.addEventListener("click", () => {
+    nameInput.value = "John Doe";
+  });
+}
+
+let count = 0;
+if (countDisplay && countButton) {
+  countButton.addEventListener("click", () => {
+    count++;
+    countDisplay.textContent = count;
+  });
+}
+
+if (removeMe && removeButton) {
+  removeButton.onclick = function () {
+    removeMe.remove();
+  };
+}
+
+if (hoverText) {
+  hoverText.onmouseover = function () {
+    hoverText.style.fontSize = "2em";
+  };
+  hoverText.onmouseout = function () {
+    hoverText.style.fontSize = "1em";
+  };
+}
+
+if (myForm) {
+  myForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+  });
+}
+
+if (createBox) {
+  createBox.addEventListener("click", function () {
+    const fragment = document.createDocumentFragment();
+    const newDiv = document.createElement("div");
+    newDiv.textContent = "I am a new Div";
+    newDiv.classList.add("box");
+    fragment.appendChild(newDiv);
+    document.body.appendChild(fragment);
+  });
+}
+
+if (removeBox) {
+  removeBox.addEventListener("click", () => {
+    const boxes = document.getElementsByClassName("box");
+    if (boxes.length) {
+      document.body.removeChild(boxes[boxes.length - 1]);
+    }
+  });
+}
+
+if (message && charCount) {
+  message.addEventListener("input", () => {
+    charCount.innerText = message.value.length;
+  });
+}
+
+if (inputs.length) {
+  inputs.forEach((input) =>
+    input.addEventListener("focus", (e) => {
+      input.style.backgroundColor = "red";
+    })
+  );
+  inputs.forEach((input) =>
+    input.addEventListener("blur", (e) => {
+      input.style.backgroundColor = "white";
+    })
+  );
+}
+
+if (myInput) {
+  myInput.addEventListener("keydown", (e) => {
+    console.log(e);
+
+    if (e.key == "Enter") {
+      console.log("Enter Key pressed!");
+    }
+  });
+}
+
+let offsetX = 0,
+  offsetY = 0,
+  isDragging = false;
+
+if (dragBox) {
+  dragBox.addEventListener("mousedown", (e) => {
+    isDragging = true;
+    offsetX = e.clientX - dragBox.getBoundingClientRect().left;
+    offsetY = e.clientY - dragBox.getBoundingClientRect().top;
+    dragBox.style.cursor = "grabbing";
+  });
+
+  document.addEventListener("mousemove", (e) => {
+    if (!isDragging) return;
+    dragBox.style.position = "absolute";
+    dragBox.style.left = `${e.clientX - offsetX}px`;
+    dragBox.style.top = `${e.clientY - offsetY}px`;
+  });
+
+  document.addEventListener("mouseup", () => {
+    isDragging = false;
+    dragBox.style.cursor = "grab";
+  });
+}
+
+if (darkMode) {
+  darkMode.onclick = function () {
+    document.body.classList.toggle("dark-mode");
+  };
+}
+
+let interval;
+window.addEventListener("DOMContentLoaded", () => {
+  interval = setInterval(() => {
+    timer.innerText = timer.innerText - 1;
+    console.log(timer.innerText);
+    if (timer.innerText == 0) {
+      clearInterval(interval);
+    }
+  }, 1000);
 });
+
+async function fetchUrl(url) {
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    console.error("Data fetch failed:", err);
+  }
+}
+
+if (userList) {
+  let users = fetchUrl(`https://jsonplaceholder.typicode.com/users`);
+  if (users.length) {
+    let fragement = document.createDocumentFragment();
+  }
+  console.log("Users", users);
+}
+
+if (switchText) {
+  window.addEventListener("DOMContentLoaded", function () {
+    setInterval(() => {
+      switchText.innerText =
+        switchText.innerText === "Hello" ? "Goodbye" : "Hello";
+    }, 2000);
+  });
+}
+
+if (copyBtn) {
+  copyBtn.onclick = function () {
+    if (copyInput.value.length) navigator.clipboard.writeText(copyInput.value);
+  };
+}

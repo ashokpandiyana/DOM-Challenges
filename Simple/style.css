@@ -22,3 +22,23 @@ button {
 .toggleDisplay {
     display: none;
 }
+
+#dragBox {
+    width: 100px;
+    height: 100px;
+    background-color: lightblue;
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: grab;
+    user-select: none;
+    border-radius: 10px;
+}
+
+.dark-mode {
+    background-color: black;
+    color: white;
+}
