@@ -1,0 +1,24 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+span,
+a,
+img,
+label,
+input,
+select,
+button {
+    display: block;
+}
+
+
+#box {
+    border: 1px solid red;
+}
+
+.toggleDisplay {
+    display: none;
+}
