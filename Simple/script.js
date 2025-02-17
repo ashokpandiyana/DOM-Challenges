@@ -25,6 +25,15 @@ const userList = document.getElementById("userList");
 const switchText = document.getElementById("switchText");
 const copyInput = document.getElementById("copyInput");
 const copyBtn = document.getElementById("copyBtn");
+const windowSize = document.getElementById("windowSize");
+const modal = document.getElementById("modal");
+const modalBtn = document.getElementById("modalBtn");
+const scrollTop = document.getElementById("scrollTop");
+const typeText = document.getElementById("typeText");
+const tooltipBtn = document.getElementById("tooltipBtn");
+const tooltip = document.getElementById("tooltip");
+const showEmoji = document.getElementById("showEmoji");
+const emoji_container = document.querySelector(".emoji_container");
 
 if (text) text.textContent = "Hello, DOM!";
 
@@ -206,3 +215,57 @@ if (copyBtn) {
     if (copyInput.value.length) navigator.clipboard.writeText(copyInput.value);
   };
 }
+
+if (windowSize) {
+  window.addEventListener("resize", (e) => {
+    console.log(e);
+    windowSize.innerText = `Width:${window.innerWidth}`;
+  });
+}
+if (modalBtn && modal) {
+  modalBtn.addEventListener("click", () => {
+    modal.style.display = "block";
+  });
+  window.addEventListener("click", (e) => {
+    console.log(e.target);
+    if (
+      modal.style.display === "block" &&
+      !e.target.closest(".modalContainer")
+    ) {
+      modal.style.display = "none";
+    }
+  });
+}
+
+scrollTop.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+const typeWriteText = "Hello, this is a typewriter text";
+let index = 0;
+function typeWriter() {
+  if (index < typeWriteText.length) {
+    typeText.innerHTML += typeWriteText.charAt(index);
+    index++;
+    setTimeout(typeWriter, 100);
+  } else {
+    typeText.style.borderRight = "none";
+  }
+}
+
+if (typeText) {
+  window.onload = function () {
+    setTimeout(typeWriter, 500);
+  };
+}
+
+tooltipBtn.addEventListener("mouseover", function (event) {
+  tooltip.style.display = "block";
+  tooltip.style.position = "absolute";
+  tooltip.style.left = event.pageX + "px";
+  tooltip.style.top = event.pageY + 20 + "px";
+});
+
+tooltipBtn.addEventListener("mouseout", function () {
+  tooltip.style.display = "none";
+});
